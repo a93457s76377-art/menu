@@ -33,8 +33,6 @@
     <div class="notice-banner">✨ 本店販售炸雞均為溫體雞肉 ✨</div>
 
     <div class="container">
-        
-        <!-- 招牌與雞肉類 -->
         <div class="category-title">招牌雞肉系列</div>
         <div class="product-card"><div><div class="prod-name">脆皮雞排</div><div class="prod-price">NT$ 75</div></div><div class="cart-controls"><button class="btn-qty" onclick="changeQty('p1', -1, '脆皮雞排', 75)">-</button><div class="qty-num" id="p1-qty">0</div><button class="btn-qty" onclick="changeQty('p1', 1, '脆皮雞排', 75)">+</button></div></div>
         <div class="product-card"><div><div class="prod-name">雞腿</div><div class="prod-price">NT$ 60</div></div><div class="cart-controls"><button class="btn-qty" onclick="changeQty('p2', -1, '雞腿', 60)">-</button><div class="qty-num" id="p2-qty">0</div><button class="btn-qty" onclick="changeQty('p2', 1, '雞腿', 60)">+</button></div></div>
@@ -48,7 +46,6 @@
         <div class="product-card"><div><div class="prod-name">紐奧良雞塊</div><div class="prod-price">NT$ 50</div></div><div class="cart-controls"><button class="btn-qty" onclick="changeQty('p10', -1, '紐奧良雞塊', 50)">-</button><div class="qty-num" id="p10-qty">0</div><button class="btn-qty" onclick="changeQty('p10', 1, '紐奧良雞塊', 50)">+</button></div></div>
         <div class="product-card"><div><div class="prod-name">脆皮雞胗</div><div class="prod-price">NT$ 30</div></div><div class="cart-controls"><button class="btn-qty" onclick="changeQty('p11', -1, '脆皮雞胗', 30)">-</button><div class="qty-num" id="p11-qty">0</div><button class="btn-qty" onclick="changeQty('p11', 1, '脆皮雞胗', 30)">+</button></div></div>
 
-        <!-- 美味炸小物 -->
         <div class="category-title">美味炸小物</div>
         <div class="product-card"><div><div class="prod-name">麥克雞塊</div><div class="prod-price">NT$ 30</div></div><div class="cart-controls"><button class="btn-qty" onclick="changeQty('s1', -1, '麥克雞塊', 30)">-</button><div class="qty-num" id="s1-qty">0</div><button class="btn-qty" onclick="changeQty('s1', 1, '麥克雞塊', 30)">+</button></div></div>
         <div class="product-card"><div><div class="prod-name">地瓜</div><div class="prod-price">NT$ 30</div></div><div class="cart-controls"><button class="btn-qty" onclick="changeQty('s2', -1, '地瓜', 30)">-</button><div class="qty-num" id="s2-qty">0</div><button class="btn-qty" onclick="changeQty('s2', 1, '地瓜', 30)">+</button></div></div>
@@ -77,7 +74,6 @@
         <div class="product-card"><div><div class="prod-name">薯餅</div><div class="prod-price">NT$ 30</div></div><div class="cart-controls"><button class="btn-qty" onclick="changeQty('s25', -1, '薯餅', 30)">-</button><div class="qty-num" id="s25-qty">0</div><button class="btn-qty" onclick="changeQty('s25', 1, '薯餅', 30)">+</button></div></div>
         <div class="product-card"><div><div class="prod-name">金針菇</div><div class="prod-price">NT$ 35</div></div><div class="cart-controls"><button class="btn-qty" onclick="changeQty('s26', -1, '金針菇', 35)">-</button><div class="qty-num" id="s26-qty">0</div><button class="btn-qty" onclick="changeQty('s26', 1, '金針菇', 35)">+</button></div></div>
 
-        <!-- 特別推薦 -->
         <div class="category-title">特別推薦（水餃與湯品）</div>
         <div class="product-card"><div><div class="prod-name">酥炸水餃 (高麗菜/韭菜)</div><div class="prod-price">NT$ 50</div></div><div class="cart-controls"><button class="btn-qty" onclick="changeQty('d1', -1, '酥炸水餃', 50)">-</button><div class="qty-num" id="d1-qty">0</div><button class="btn-qty" onclick="changeQty('d1', 1, '酥炸水餃', 50)">+</button></div></div>
         <div class="product-card"><div><div class="prod-name">脆皮湯圓</div><div class="prod-price">NT$ 35</div></div><div class="cart-controls"><button class="btn-qty" onclick="changeQty('d2', -1, '脆皮湯圓', 35)">-</button><div class="qty-num" id="d2-qty">0</div><button class="btn-qty" onclick="changeQty('d2', 1, '脆皮湯圓', 35)">+</button></div></div>
@@ -85,7 +81,6 @@
         <div class="product-card"><div><div class="prod-name">水餃 (非炸)</div><div class="prod-price">NT$ 30</div></div><div class="cart-controls"><button class="btn-qty" onclick="changeQty('d4', -1, '水餃(非炸)', 30)">-</button><div class="qty-num" id="d4-qty">0</div><button class="btn-qty" onclick="changeQty('d4', 1, '水餃(非炸)', 30)">+</button></div></div>
     </div>
 
-    <!-- 固定購物車列 -->
     <div class="cart-bar">
         <div class="total-price">總金額：NT$ <span id="total-amount">0</span></div>
         <button class="btn-submit" onclick="sendOrder()">確認點餐</button>
@@ -93,31 +88,22 @@
 
     <script>
         let cart = {};
-
         function changeQty(id, amount, name, price) {
-            if (!cart[id]) {
-                cart[id] = { name: name, price: price, qty: 0 };
-            }
+            if (!cart[id]) { cart[id] = { name: name, price: price, qty: 0 }; }
             cart[id].qty += amount;
             if (cart[id].qty < 0) cart[id].qty = 0;
-            
             document.getElementById(id + '-qty').innerText = cart[id].qty;
             calculateTotal();
         }
-
         function calculateTotal() {
             let total = 0;
-            for (let id in cart) {
-                total += cart[id].qty * cart[id].price;
-            }
+            for (let id in cart) { total += cart[id].qty * cart[id].price; }
             document.getElementById('total-amount').innerText = total;
         }
-
         function sendOrder() {
             let orderText = "［珍珍炸雞 線上點餐］\n------------------\n";
             let hasItems = false;
             let total = 0;
-
             for (let id in cart) {
                 if (cart[id].qty > 0) {
                     orderText += `${cart[id].name} x ${cart[id].qty}份 ($${cart[id].qty * cart[id].price})\n`;
@@ -125,12 +111,7 @@
                     hasItems = true;
                 }
             }
-
-            if (!hasItems) {
-                alert("您還沒有選取任何餐點喔！");
-                return;
-            }
-
+            if (!hasItems) { alert("您還沒有選取任何餐點喔！"); return; }
             orderText += `------------------\n總金額：NT$ ${total}\n請幫我確認餐點，謝謝！`;
             window.location.href = "line://msg/text/?" + encodeURIComponent(orderText);
         }
