@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>珍珍炸雞 - 線上點餐</title>
+    <style>
+        body { font-family: -apple-system, sans-serif; background-color: #fcf8f2; color: #4a2711; margin: 0; padding-bottom: 120px; }
+        .header { background-color: #d96b27; color: white; text-align: center; padding: 20px; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .header h2 { margin: 0 0 5px 0; font-size: 24px; letter-spacing: 2px; }
+        .header p { margin: 0; font-size: 13px; opacity: 0.9; }
+        .notice-banner { background-color: #fff1e6; color: #d96b27; text-align: center; padding: 8px; font-size: 12px; font-weight: bold; border-bottom: 1px dashed #d96b27; }
+        .container { padding: 15px; max-width: 500px; margin: 0 auto; }
+        .category-title { font-size: 18px; font-weight: bold; border-left: 5px solid #d96b27; padding-left: 10px; margin: 25px 0 15px 0; color: #d96b27; }
+        .product-card { background: white; border-radius: 12px; padding: 15px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .prod-name { font-weight: bold; font-size: 16px; color: #333; }
+        .prod-price { color: #d96b27; font-weight: bold; margin-top: 5px; font-size: 15px; }
+        .cart-controls { display: flex; align-items: center; gap: 10px; }
+        .btn-qty { background-color: #f3e5da; border: none; color: #d96b27; font-size: 18px; font-weight: bold; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .qty-num { font-weight: bold; font-size: 16px; min-width: 24px; text-align: center; }
+        .cart-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; box-shadow: 0 -4px 10px rgba(0,0,0,0.1); padding: 15px; display: flex; justify-content: space-between; align-items: center; max-width: 500px; margin: 0 auto; border-top-left-radius: 15px; border-top-right-radius: 15px; box-sizing: border-box; }
+        .total-price { font-size: 16px; font-weight: bold; }
+        .total-price span { color: #d96b27; font-size: 22px; }
+        .btn-submit { background-color: #d96b27; color: white; border: none; padding: 12px 30px; border-radius: 25px; font-size: 16px; font-weight: bold; cursor: pointer; box-shadow: 0 3px 6px rgba(217,107,39,0.3); }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h2>🍗 珍珍炸雞 🍗</h2>
+        <p>營業時間：下午 2:00 - 晚上 10:00</p>
+    </div>
+    <div class="notice-banner">✨ 本店販售炸雞均為溫體雞肉 ✨</div>
+
+    <div class="container">
+        
+        <!-- 招牌與雞肉類 -->
+        <div class="category-title">招牌雞肉系列</div>
+        <div class="product-card"><div><div class="prod-name">脆皮雞排</div><div class="prod-price">NT$ 75</div></div><div class="cart-controls"><button class="btn-qty" onclick="changeQty('p1', -1, '脆皮雞排', 75)">-</button><div class="qty-num" id="p1-qty">0</div><button class="btn-qty" onclick="changeQty('p1', 1, '脆皮雞排', 75)">+</button></div></div>
+        <div class="product-card"><div><div class="prod-name">雞腿</div><div class="prod-price">NT$ 60</div></div><div class="cart-controls"><button class="btn-qty" onclick="changeQty('p2', -1, '雞腿', 60)">-</button><div class="qty-num" id="p2-qty">0</div><button class="btn-qty" onclick="changeQty('p2', 1, '雞腿', 60)">+</button></div></div>
+        <div class="product-card"><div><div class="prod-name">雞翅</div><div class="prod-price">NT$ 30</div></div><div class="cart-controls"><button class="btn-qty" onclick="changeQty('p3', -1, '雞翅', 30)">-</button><div class="qty-num" id="p3-qty">0</div><button class="btn-qty" onclick="changeQty('p3', 1, '雞翅', 30)">+</button></div></div>
+        <div class="product-card"><div><div class="prod-name">腿排</div><div class="prod-price">NT$ 50</div></div><div class="cart-controls"><button class="btn-qty" onclick="changeQty('p4', -1, '腿排', 50)">-</button><div class="qty-num" id="p4-qty">0</div><button class="btn-qty" onclick="changeQty('p4', 1, '腿排', 50)">+</button></div></div>
+        <div class="product-card"><div><div class="prod-name">無骨梅子雞丁</div><div class="prod-price">NT$ 50</div></div><div class="cart-controls"><button class="btn-qty" onclick="changeQty('p5', -1, '無骨梅子雞丁', 50)">-</button><div class="qty-num" id="p5-qty">0</div><button class="btn-qty" onclick="changeQty('p5', 1, '無骨梅子雞丁', 50)">+</button></div></div>
+        <div class="product-card"><div><div class="prod-name">雞脖子</div><div class="prod-price">NT$ 20</div></div><div class="cart-controls"><button class="btn-qty" onclick="changeQty('p6', -1, '雞脖子', 20)">-</button><div class="qty-num" id="p6-qty">0</div><button class="btn-qty" onclick="changeQty('p6', 1, '雞脖子', 20)">+</button></div></div>
+        <div class="product-card"><div><div class="prod-name">雞皮</div><div class="prod-price">NT$ 20</div></div><div class="cart-controls"><button class="btn-qty" onclick="changeQty('p7', -1, '雞皮', 20)">-</button><div class="qty-num" id="p7-qty">0</div><button class="btn-qty" onclick="changeQty('p7', 1, '雞皮', 20)">+</button></div></div>
+        <div class="product-card"><div><div class="prod-name">雞心</div><div class="prod-price">NT$ 30</div></div><div class="cart-controls"><button class="btn-qty" onclick="changeQty('p8', -1, '雞心', 30)">-</button><div class="qty-num" id="p8-qty">0</div><button class="btn-qty" onclick="changeQty('p8', 1, '雞心', 30)">+</button></div></div>
+        <div class="product-card"><div><div class="prod-name">雞屁股</div><div class="prod-price">NT$ 35</div></div><div class="cart-controls"><button class="btn-qty" onclick="changeQty('p9', -1, '雞屁股', 35)">-</button><div class="qty-num" id="p9-qty">0</div><button class="btn-qty" onclick="changeQty('p9', 1, '雞屁股', 35)">+</button></div></div>
+        <div class="product-card"><div><div class="prod-name">紐奧良雞塊</div><div class="prod-price">NT$ 50</div></div><div class="cart-controls"><button class="btn-qty" onclick="changeQty('p10', -1, '紐奧良雞塊', 50)">-</button><div class="qty-num" id="p10-qty">0</div><button class="btn-qty" onclick="changeQty('p10', 1, '紐奧良雞塊', 50)">+</button></div></div>
+        <div class="product-card"><div><div class="prod-name">脆皮雞胗</div><div class="prod-price">NT$ 30</div></div><div class="cart-controls"><button class="btn-qty" onclick="changeQty('p11', -1, '脆皮雞胗', 30)">-</button><div class="qty-num" id="p11-qty">0</div><button class="btn-qty" onclick="changeQty('p11', 1, '脆皮雞胗', 30)">+</button></div></div>
+
+        <!-- 美味炸小物 -->
+        <div class="category-title">美味炸小物</div>
+        <div class="product-card"><div><div class="prod-name">麥克雞塊</div><div class="prod-price">NT$ 30</div></div><div class="cart-controls"><button class="btn-qty" onclick="changeQty('s1', -1, '麥克雞塊', 30)">-</button><div class="qty-num" id="s1-qty">0</div><button class="btn-qty" onclick="changeQty('s1', 1, '麥克雞塊', 30)">+</button></div></div>
+        <div class="product-card"><div><div class="prod-name">地瓜</div><div class="prod-price">NT$ 30</div></div><div class="cart-controls"><button class="btn-qty" onclick="changeQty('s2', -1, '地瓜', 30)">-</button><div class="qty-num" id="s2-qty">0</div><button class="btn-qty" onclick="changeQty('s2', 1, '地瓜', 30)">+</button></div></div>
+        <div class="product-card"><div><div class="prod-name">小薯條</div><div class="prod-price">NT$ 30</div></div><div class="cart-controls"><button class="btn-qty" onclick="changeQty('s3', -1, '小薯條', 30)">-</button><div class="qty-num" id="s3-qty">0</div><button class="btn-qty" onclick="changeQty('s3', 1, '小薯條', 30)">+</button></div></div>
+        <div class="product-card"><div><div class="prod-name">脆皮薯條</div><div class="prod-price">NT$ 30</div></div><div class="cart-controls"><button class="btn-qty" onclick="changeQty('s4', -1, '脆皮薯條', 30)">-</button><div class="qty-num" id="s4-qty">0</div><button class="btn-qty" onclick="changeQty('s4', 1, '脆皮薯條', 30)">+</button></div></div>
+        <div class="product-card"><div><div class="prod-name">脆皮小熱狗</div><div class="prod-price">NT$ 30</div></div><div class="cart-controls"><button class="btn-qty" onclick="changeQty('s5', -1, '脆皮小熱狗', 30)">-</button><div class="qty-num" id="s5-qty">0</div><button class="btn-qty" onclick="changeQty('s5', 1, '脆皮小熱狗', 30)">+</button></div></div>
+        <div class="product-card"><div><div class="prod-name">熱狗棒</div><div class="prod-price">NT$ 30</div></div><div class="cart-controls"><button class="btn-qty" onclick="changeQty('s6', -1, '熱狗棒', 30)">-</button><div class="qty-num" id="s6-qty">0</div><button class="btn-qty" onclick="changeQty('s6', 1, '熱狗棒', 30)">+</button></div></div>
+        <div class="product-card"><div><div class="prod-name">花枝丸</div><div class="prod-price">NT$ 30</div></div><div class="cart-controls"><button class="btn-qty" onclick="changeQty('s7', -1, '花枝丸', 30)">-</button><div class="qty-num" id="s7-qty">0</div><button class="btn-qty" onclick="changeQty('s7', 1, '花枝丸', 30)">+</button></div></div>
+        <div class="product-card"><div><div class="prod-name">芋籤粿</div><div class="prod-price">NT$ 30</div></div><div class="cart-controls"><button class="btn-qty" onclick="changeQty('s8', -1, '芋籤粿', 30)">-</button><div class="qty-num" id="s8-qty">0</div><button class="btn-qty" onclick="changeQty('s8', 1, '芋籤粿', 30)">+</button></div></div>
+        <div class="product-card"><div><div class="prod-name">甜不辣</div><div class="prod-price">NT$ 30</div></div><div class="cart-controls"><button class="btn-qty" onclick="changeQty('s9', -1, '甜不辣', 30)">-</button><div class="qty-num" id="s9-qty">0</div><button class="btn-qty" onclick="changeQty('s9', 1, '甜不辣', 30)">+</button></div></div>
+        <div class="product-card"><div><div class="prod-name">銀絲捲</div><div class="prod-price">NT$ 30</div></div><div class="cart-controls"><button class="btn-qty" onclick="changeQty('s10', -1, '銀絲捲', 30)">-</button><div class="qty-num" id="s10-qty">0</div><button class="btn-qty" onclick="changeQty('s10', 1, '銀絲捲', 30)">+</button></div></div>
+        <div class="product-card"><div><div class="prod-name">杏鮑菇</div><div class="prod-price">NT$ 35</div></div><div class="cart-controls"><button class="btn-qty" onclick="changeQty('s11', -1, '杏鮑菇', 35)">-</button><div class="qty-num" id="s11-qty">0</div><button class="btn-qty" onclick="changeQty('s11', 1, '杏鮑菇', 35)">+</button></div></div>
+        <div class="product-card"><div><div class="prod-name">貢丸</div><div class="prod-price">NT$ 30</div></div><div class="cart-controls"><button class="btn-qty" onclick="changeQty('s12', -1, '貢丸', 30)">-</button><div class="qty-num" id="s12-qty">0</div><button class="btn-qty" onclick="changeQty('s12', 1, '貢丸', 30)">+</button></div></div>
+        <div class="product-card"><div><div class="prod-name">蘿蔔糕</div><div class="prod-price">NT$ 30</div></div><div class="cart-controls"><button class="btn-qty" onclick="changeQty('s13', -1, '蘿蔔糕', 30)">-</button><div class="qty-num" id="s13-qty">0</div><button class="btn-qty" onclick="changeQty('s13', 1, '蘿蔔糕', 30)">+</button></div></div>
+        <div class="product-card"><div><div class="prod-name">米腸</div><div class="prod-price">NT$ 30</div></div><div class="cart-controls"><button class="btn-qty" onclick="changeQty('s14', -1, '米腸', 30)">-</button><div class="qty-num" id="s14-qty">0</div><button class="btn-qty" onclick="changeQty('s14', 1, '米腸', 30)">+</button></div></div>
+        <div class="product-card"><div><div class="prod-name">玉米筍</div><div class="prod-price">NT$ 50</div></div><div class="cart-controls"><button class="btn-qty" onclick="changeQty('s15', -1, '玉米筍', 50)">-</button><div class="qty-num" id="s15-qty">0</div><button class="btn-qty" onclick="changeQty('s15', 1, '玉米筍', 50)">+</button></div></div>
+        <div class="product-card"><div><div class="prod-name">豆干</div><div class="prod-price">NT$ 20</div></div><div class="cart-controls"><button class="btn-qty" onclick="changeQty('s16', -1, '豆干', 20)">-</button><div class="qty-num" id="s16-qty">0</div><button class="btn-qty" onclick="changeQty('s16', 1, '豆干', 20)">+</button></div></div>
+        <div class="product-card"><div><div class="prod-name">魷魚圈</div><div class="prod-price">NT$ 60</div></div><div class="cart-controls"><button class="btn-qty" onclick="changeQty('s17', -1, '魷魚圈', 60)">-</button><div class="qty-num" id="s17-qty">0</div><button class="btn-qty" onclick="changeQty('s17', 1, '魷魚圈', 60)">+</button></div></div>
+        <div class="product-card"><div><div class="prod-name">百頁豆腐</div><div class="prod-price">NT$ 30</div></div><div class="cart-controls"><button class="btn-qty" onclick="changeQty('s18', -1, '百頁豆腐', 30)">-</button><div class="qty-num" id="s18-qty">0</div><button class="btn-qty" onclick="changeQty('s18', 1, '百頁豆腐', 30)">+</button></div></div>
+        <div class="product-card"><div><div class="prod-name">米血糕</div><div class="prod-price">NT$ 30</div></div><div class="cart-controls"><button class="btn-qty" onclick="changeQty('s19', -1, '米血糕', 30)">-</button><div class="qty-num" id="s19-qty">0</div><button class="btn-qty" onclick="changeQty('s19', 1, '米血糕', 30)">+</button></div></div>
+        <div class="product-card"><div><div class="prod-name">四季豆</div><div class="prod-price">NT$ 35</div></div><div class="cart-controls"><button class="btn-qty" onclick="changeQty('s20', -1, '四季豆', 35)">-</button><div class="qty-num" id="s20-qty">0</div><button class="btn-qty" onclick="changeQty('s20', 1, '四季豆', 35)">+</button></div></div>
+        <div class="product-card"><div><div class="prod-name">柳葉魚</div><div class="prod-price">NT$ 75</div></div><div class="cart-controls"><button class="btn-qty" onclick="changeQty('s21', -1, '柳葉魚', 75)">-</button><div class="qty-num" id="s21-qty">0</div><button class="btn-qty" onclick="changeQty('s21', 1, '柳葉魚', 75)">+</button></div></div>
+        <div class="product-card"><div><div class="prod-name">芋仔餅</div><div class="prod-price">NT$ 35</div></div><div class="cart-controls"><button class="btn-qty" onclick="changeQty('s22', -1, '芋仔餅', 35)">-</button><div class="qty-num" id="s22-qty">0</div><button class="btn-qty" onclick="changeQty('s22', 1, '芋仔餅', 35)">+</button></div></div>
+        <div class="product-card"><div><div class="prod-name">鑫鑫腸</div><div class="prod-price">NT$ 20</div></div><div class="cart-controls"><button class="btn-qty" onclick="changeQty('s23', -1, '鑫鑫腸', 20)">-</button><div class="qty-num" id="s23-qty">0</div><button class="btn-qty" onclick="changeQty('s23', 1, '鑫鑫腸', 20)">+</button></div></div>
+        <div class="product-card"><div><div class="prod-name">糯米椒</div><div class="prod-price">NT$ 35</div></div><div class="cart-controls"><button class="btn-qty" onclick="changeQty('s24', -1, '糯米椒', 35)">-</button><div class="qty-num" id="s24-qty">0</div><button class="btn-qty" onclick="changeQty('s24', 1, '糯米椒', 35)">+</button></div></div>
+        <div class="product-card"><div><div class="prod-name">薯餅</div><div class="prod-price">NT$ 30</div></div><div class="cart-controls"><button class="btn-qty" onclick="changeQty('s25', -1, '薯餅', 30)">-</button><div class="qty-num" id="s25-qty">0</div><button class="btn-qty" onclick="changeQty('s25', 1, '薯餅', 30)">+</button></div></div>
+        <div class="product-card"><div><div class="prod-name">金針菇</div><div class="prod-price">NT$ 35</div></div><div class="cart-controls"><button class="btn-qty" onclick="changeQty('s26', -1, '金針菇', 35)">-</button><div class="qty-num" id="s26-qty">0</div><button class="btn-qty" onclick="changeQty('s26', 1, '金針菇', 35)">+</button></div></div>
+
+        <!-- 特別推薦 -->
+        <div class="category-title">特別推薦（水餃與湯品）</div>
+        <div class="product-card"><div><div class="prod-name">酥炸水餃 (高麗菜/韭菜)</div><div class="prod-price">NT$ 50</div></div><div class="cart-controls"><button class="btn-qty" onclick="changeQty('d1', -1, '酥炸水餃', 50)">-</button><div class="qty-num" id="d1-qty">0</div><button class="btn-qty" onclick="changeQty('d1', 1, '酥炸水餃', 50)">+</button></div></div>
+        <div class="product-card"><div><div class="prod-name">脆皮湯圓</div><div class="prod-price">NT$ 35</div></div><div class="cart-controls"><button class="btn-qty" onclick="changeQty('d2', -1, '脆皮湯圓', 35)">-</button><div class="qty-num" id="d2-qty">0</div><button class="btn-qty" onclick="changeQty('d2', 1, '脆皮湯圓', 35)">+</button></div></div>
+        <div class="product-card"><div><div class="prod-name">沙茶湯</div><div class="prod-price">NT$ 30</div></div><div class="cart-controls"><button class="btn-qty" onclick="changeQty('d3', -1, '沙茶湯', 30)">-</button><div class="qty-num" id="d3-qty">0</div><button class="btn-qty" onclick="changeQty('d3', 1, '沙茶湯', 30)">+</button></div></div>
+        <div class="product-card"><div><div class="prod-name">水餃 (非炸)</div><div class="prod-price">NT$ 30</div></div><div class="cart-controls"><button class="btn-qty" onclick="changeQty('d4', -1, '水餃(非炸)', 30)">-</button><div class="qty-num" id="d4-qty">0</div><button class="btn-qty" onclick="changeQty('d4', 1, '水餃(非炸)', 30)">+</button></div></div>
+    </div>
+
+    <!-- 固定購物車列 -->
+    <div class="cart-bar">
+        <div class="total-price">總金額：NT$ <span id="total-amount">0</span></div>
+        <button class="btn-submit" onclick="sendOrder()">確認點餐</button>
+    </div>
+
+    <script>
+        let cart = {};
+
+        function changeQty(id, amount, name, price) {
+            if (!cart[id]) {
+                cart[id] = { name: name, price: price, qty: 0 };
+            }
+            cart[id].qty += amount;
+            if (cart[id].qty < 0) cart[id].qty = 0;
+            
+            document.getElementById(id + '-qty').innerText = cart[id].qty;
+            calculateTotal();
+        }
+
+        function calculateTotal() {
+            let total = 0;
+            for (let id in cart) {
+                total += cart[id].qty * cart[id].price;
+            }
+            document.getElementById('total-amount').innerText = total;
+        }
+
+        function sendOrder() {
+            let orderText = "［珍珍炸雞 線上點餐］\n------------------\n";
+            let hasItems = false;
+            let total = 0;
+
+            for (let id in cart) {
+                if (cart[id].qty > 0) {
+                    orderText += `${cart[id].name} x ${cart[id].qty}份 ($${cart[id].qty * cart[id].price})\n`;
+                    total += cart[id].qty * cart[id].price;
+                    hasItems = true;
+                }
+            }
+
+            if (!hasItems) {
+                alert("您還沒有選取任何餐點喔！");
+                return;
+            }
+
+            orderText += `------------------\n總金額：NT$ ${total}\n請幫我確認餐點，謝謝！`;
+            window.location.href = "line://msg/text/?" + encodeURIComponent(orderText);
+        }
+    </script>
+</body>
+</html>
